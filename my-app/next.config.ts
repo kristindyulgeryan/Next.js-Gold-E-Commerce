@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/photos/**",
       },
+      {
+        protocol: "https",
+        hostname: "github.com",
+        port: "",
+        pathname: "/kristindyulgeryan/Goldman/blob/main/avediss/image/**",
+      },
     ],
   },
 };
