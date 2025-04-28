@@ -11,7 +11,7 @@ const slides = [
     description: "Discover Jewelry World",
     img: "https://github.com/kristindyulgeryan/Goldman/blob/main/avediss/image/chain.jpg?raw=true",
     url: "/",
-    bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
+    bg: "bg-gradient-to-r from-yellow-100 to-pink-50",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const slides = [
     description: "High quality jewelry, unique designs",
     img: "https://github.com/kristindyulgeryan/Goldman/blob/main/avediss/image/earring.jpg?raw=true",
     url: "/",
-    bg: "bg-gradient-to-r from-yellow-50 to-pink-50",
+    bg: "bg-gradient-to-r from-gray-300 to-yellow-50",
   },
   {
     id: 3,
