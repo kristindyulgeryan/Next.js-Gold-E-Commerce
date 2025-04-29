@@ -25,7 +25,7 @@ const slides = [
     id: 3,
     title: "Men's Jewelry",
     description: "Wear them anytime, anywhere",
-    img: "https://github.com/kristindyulgeryan/Goldman/blob/main/avediss/image/kamuk.png?raw=true",
+    img: "https://images.pexels.com/photos/1687719/pexels-photo-1687719.jpeg?auto=compress&cs=tinysrgb&w=600",
     url: "/",
     bg: "bg-gradient-to-r from-blue-50 to-yellow-50",
   },
