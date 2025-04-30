@@ -6,7 +6,7 @@ const CustomizeProducts = () => {
         <li className="w-8 h-8 rounded-full ring-1 ring-gray-300 cursor-pointer relative bg-yellow-500">
           <div className="absolute w-10 h-10 rounded-full ring-2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
         </li>
-        <li className="w-8 h-8 rounded-full ring-1 ring-gray-300 cursor-pointer relative bg-gray-100"></li>
+        <li className="w-8 h-8 rounded-full ring-1 ring-gray-300 cursor-pointer relative bg-gray-400"></li>
         <li
           className="w-8 h-8 rounded-full ring-1 ring-gray-300 cursor-not-allowed relative"
           style={{ backgroundColor: "#ECC5C0" }}
