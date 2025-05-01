@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/kristindyulgeryan/Goldman/blob/main/avediss/image/**",
       },
+      {
+        protocol: "https",
+        hostname: "static.wixstatic.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
