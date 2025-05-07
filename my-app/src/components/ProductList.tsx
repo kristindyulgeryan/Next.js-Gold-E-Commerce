@@ -21,6 +21,7 @@ const ProductList = async ({
     .find();
 
   console.log(response.items[0].price);
+  console.log(response.items[0].description);
 
   return (
     <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
@@ -56,15 +57,11 @@ const ProductList = async ({
                 : "N/A"}
             </span>
           </div>
-          {product.additionalInfoSections && (
+          {product.description && (
             <div
               className="text-sm text-gray-500"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(
-                  product.additionalInfoSections.find(
-                    (section: any) => section.title === "shortDescription"
-                  )?.description || ""
-                ),
+                __html: DOMPurify.sanitize(product.description),
               }}
             ></div>
           )}
