@@ -16,6 +16,7 @@ const ProductList = async ({
   searchParams?: any;
 }) => {
   const wixClient = await wixClientServer();
+
   const response = await wixClient.products
     .queryProducts()
     .eq("collectionIds", categoryId)
@@ -58,11 +59,15 @@ const ProductList = async ({
                 : "N/A"}
             </span>
           </div>
-          {product.description && (
+          {product.additionalInfoSections && (
             <div
               className="text-sm text-gray-500"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(product.description),
+                __html: DOMPurify.sanitize(
+                  product.additionalInfoSections?.find(
+                    (section: any) => section.title === "shortDesc"
+                  )?.description || ""
+                ),
               }}
             ></div>
           )}
