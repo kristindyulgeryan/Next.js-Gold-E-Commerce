@@ -29,10 +29,7 @@ const CustomizeProducts = ({
       return (
         Object.entries(choices).every(
           ([key, value]) => variantChoices[key] === value
-        ) &&
-        variant.stock?.inStock &&
-        variant.stock?.quantity &&
-        variant.stock?.quantity > 0
+        ) && variant.stock?.inStock === true
       );
     });
   };
@@ -50,8 +47,7 @@ const CustomizeProducts = ({
               });
 
               const selected =
-                selectedOptions[optionType.name!] ===
-                choice.description?.toLowerCase();
+                selectedOptions[optionType.name!] === choice.description;
 
               const clickHandler = disabled
                 ? undefined
@@ -60,7 +56,6 @@ const CustomizeProducts = ({
 
               return optionType.name === "Color" ? (
                 <li
-                  key={choice.description}
                   className="w-8 h-8 rounded-full ring-1 ring-gray-300  relative "
                   style={{
                     backgroundColor: choice.value,
@@ -89,7 +84,6 @@ const CustomizeProducts = ({
                     boxShadow: disabled ? "none" : "",
                   }}
                   onClick={clickHandler}
-                  key={choice.description}
                 >
                   {choice.description}
                 </li>
