@@ -43,15 +43,15 @@ const SinglPage = async ({ params }: { params: { slug: string } }) => {
           />
         )}
         <div className="h-[2px] bg-gray-100" />
-        {product.price?.price === product.price?.discountedPrice ? (
-          <h2 className="font-medium text-2xl">€ {product.price?.price}</h2>
+        {product.priceData?.price === product.priceData?.discountedPrice ? (
+          <h2 className="font-medium text-2xl">€ {product.priceData?.price}</h2>
         ) : (
           <div className="flex items-center gap-4">
             <h3 className="text-xl text-gray-500 line-through">
-              € {product.price?.price}
+              € {product.priceData?.price}
             </h3>
             <h2 className="font-medium text-2xl">
-              € {product.price?.discountedPrice}
+              € {product.priceData?.discountedPrice}
             </h2>
           </div>
         )}
@@ -64,7 +64,7 @@ const SinglPage = async ({ params }: { params: { slug: string } }) => {
           />
         ) : (
           <Add
-            productId={product._id}
+            productId={product._id || ""}
             variantId="00000000-000000-000000-000000000001"
             inStock={product.stock?.inStock || false}
           />

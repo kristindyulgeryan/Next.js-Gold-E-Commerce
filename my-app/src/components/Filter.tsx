@@ -15,6 +15,7 @@ const Filter = () => {
     params.set(name, value);
     replace(`${pathname}?${params.toString()}`);
   };
+
   return (
     <div className="mt-12 flex justify-between">
       <div className="flex gap-6 flex-wrap">
@@ -78,10 +79,10 @@ const Filter = () => {
           onChange={handleFilterChange}
         >
           <option>Sort By</option>
-          <option value="">Price (low to high)</option>
-          <option value="">Price (high to low)</option>
-          <option value="">Newest</option>
-          <option value="">Oldest</option>
+          <option value="asc price">Price (low to high)</option>
+          <option value="desc price">Price (high to low)</option>
+          <option value="asc lastUpdated">Newest</option>
+          <option value="desc lastUpdated">Oldest</option>
         </select>
       </div>
     </div>

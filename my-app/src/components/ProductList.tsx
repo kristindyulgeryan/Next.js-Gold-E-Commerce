@@ -17,13 +17,28 @@ const ProductList = async ({
 }) => {
   const wixClient = await wixClientServer();
 
-  const response = await wixClient.products
+  const productQuery = await wixClient.products
     .queryProducts()
+    .startsWith("name", searchParams?.name || "")
     .eq("collectionIds", categoryId)
-    .limit(limit || PRODUCT_PER_PAGE)
-    .find();
+    .hasSome("productType", [searchParams?.type || "physical", "digital"])
+    .gt("priceData.price", Number(searchParams?.min) || 0)
+    .lt("priceData.price", Number(searchParams?.max) || 99999)
+    .limit(limit || PRODUCT_PER_PAGE);
+  // .find();
 
-  console.log(response.items[0].price);
+  if (searchParams?.sort) {
+    const [sortType, sortBy] = searchParams.sort.split("");
+
+    if (sortType === "asc") {
+      productQuery.ascending(sortBy);
+    }
+    if (sortType === "desc") {
+      productQuery.descending(sortBy);
+    }
+  }
+
+  const response = await productQuery.find();
 
   return (
     <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
@@ -54,8 +69,10 @@ const ProductList = async ({
           <div className="flex justify-between">
             <span className="font-medium">{product.name}</span>
             <span className="font-semibold">
-              {product.price?.price
-                ? `${product.price?.currency ?? "N/A"} ${product.price.price}`
+              {product.priceData?.price
+                ? `${product.priceData?.currency ?? "N/A"} ${
+                    product.priceData.price
+                  }`
                 : "N/A"}
             </span>
           </div>
