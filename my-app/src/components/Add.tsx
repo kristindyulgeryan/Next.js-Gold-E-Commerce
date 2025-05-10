@@ -1,18 +1,22 @@
 "use client";
-import { use, useState } from "react";
+import { useState } from "react";
 
-const Add = () => {
+const Add = ({
+  productId,
+  variantId,
+  inStock,
+}: {
+  productId: string;
+  variantId: string;
+  inStock: boolean;
+}) => {
   const [quantity, setQuantity] = useState(1);
-
-  // Temporary
-
-  const stock = 4;
 
   const handleQuantity = (type: "i" | "d") => {
     if (type === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
-    if (type === "i" && quantity < stock) {
+    if (type === "i" && quantity < 10 && inStock) {
       setQuantity((prev) => prev + 1);
     }
   };
@@ -37,10 +41,13 @@ const Add = () => {
               +
             </button>
           </div>
-          <div className="text-xs">
-            Only <span className="text-orange-500">4 items</span> left! <br />
-            {"Don't"} miss it.
-          </div>
+          {/* <div className="text-xs">
+            {inStock ? (
+              <div className="text-xs text-green-600">In stock</div>
+            ) : (
+              <div className="text-xs text-red-500">Out of stock</div>
+            )}
+          </div> */}
         </div>
         <button className="w-36 text-sm rounded-3xl ring-1 ring-pink-500 text-pink-500 py-2 px-4 hover:bg-pink-500 hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white disabled:ring-none">
           Add to Cart
