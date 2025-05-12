@@ -79,6 +79,7 @@ const LoginPage = () => {
             email,
             pathName
           );
+          setMessage("Password reset email sent. Please check your e-mail");
           break;
         case MODE.EMAIL_VERIFICATION:
           response = await wixClient.auth.processVerification({
@@ -118,6 +119,11 @@ const LoginPage = () => {
           } else {
             setError("Somthing went wrong!");
           }
+          break;
+        case LoginState.EMAIL_VERIFICATION_REQUIRED:
+          setMode(MODE.EMAIL_VERIFICATION);
+        case LoginState.OWNER_APPROVAL_REQUIRED:
+          setMessage("Your account is pending approval");
 
         default:
           break;
