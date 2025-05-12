@@ -2,8 +2,9 @@
 
 import { useWixClient } from "@/hooks/useWixClient";
 import { LoginState } from "@wix/sdk";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 enum MODE {
   LOGIN = "LOGIN",
@@ -23,6 +24,7 @@ const LoginPage = () => {
   const [message, setMessage] = useState("");
 
   const pathName = usePathname();
+  const router = useRouter();
 
   const formTitle =
     mode === MODE.LOGIN
@@ -63,7 +65,7 @@ const LoginPage = () => {
           response = await wixClient.auth.register({
             email,
             password,
-            profile: { nickname: username },
+            profile: { nickname: username.trim() },
           });
           break;
         case MODE.RESET_PASSWORD:
@@ -82,6 +84,25 @@ const LoginPage = () => {
           break;
       }
       console.log(response);
+
+      switch (response?.loginState) {
+        case LoginState.SUCCESS:
+          setMessage("Succesful! You are being redirected.");
+          const tokens = await wixClient.auth.getMemberTokensForDirectLogin(
+            response.data.sessionToken!
+          );
+          console.log(tokens);
+
+          Cookies.set("refreshToken", JSON.stringify(tokens.refreshToken), {
+            expires: 2,
+          });
+          wixClient.auth.setTokens(tokens);
+          router.push("/");
+          break;
+
+        default:
+          break;
+      }
     } catch (err) {
       console.log(err);
       setError("Something went wrong!");
@@ -113,9 +134,7 @@ const LoginPage = () => {
         ) : null}
         {mode !== MODE.EMAIL_VERIFICATION ? (
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-gray-700" htmlFor="">
-              Email
-            </label>
+            <label className="text-sm text-gray-700">Email</label>
             <input
               type="email"
               name="email"
@@ -126,9 +145,7 @@ const LoginPage = () => {
           </div>
         ) : (
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-gray-700" htmlFor="">
-              Verification Code
-            </label>
+            <label className="text-sm text-gray-700">Verification Code</label>
             <input
               type="text"
               name="emailCode"
@@ -140,9 +157,7 @@ const LoginPage = () => {
         )}
         {mode === MODE.LOGIN || mode === MODE.REGISTER ? (
           <div className="flex flex-col gap-2">
-            <label className="text-sm text-gray-700" htmlFor="">
-              Password
-            </label>
+            <label className="text-sm text-gray-700">Password</label>
             <input
               type="password"
               name="password"
