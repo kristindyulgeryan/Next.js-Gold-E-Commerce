@@ -14,6 +14,15 @@ enum MODE {
 }
 
 const LoginPage = () => {
+  const wixClient = useWixClient();
+  const router = useRouter();
+
+  const isLoggedIn = wixClient.auth.loggedIn();
+  console.log(isLoggedIn);
+
+  if (isLoggedIn) {
+    router.push("/");
+  }
   const [mode, setMode] = useState(MODE.LOGIN);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -24,7 +33,6 @@ const LoginPage = () => {
   const [message, setMessage] = useState("");
 
   const pathName = usePathname();
-  const router = useRouter();
 
   const formTitle =
     mode === MODE.LOGIN
@@ -43,8 +51,6 @@ const LoginPage = () => {
       : mode === MODE.RESET_PASSWORD
       ? "Reset"
       : "Verify";
-
-  const wixClient = useWixClient();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,6 +105,19 @@ const LoginPage = () => {
           wixClient.auth.setTokens(tokens);
           router.push("/");
           break;
+        case LoginState.FAILURE:
+          if (
+            response.errorCode === "invalidEmail" ||
+            response.errorCode === "invalidPassword"
+          ) {
+            setError("Invalid email or password!");
+          } else if (response.errorCode === "emailAlreadyExists") {
+            setError("Email already exist!");
+          } else if (response.errorCode === "resetPassword") {
+            setError("You need to reset your password!");
+          } else {
+            setError("Somthing went wrong!");
+          }
 
         default:
           break;
