@@ -27,6 +27,10 @@ const CartModal = () => {
             thankYouPageUrl: `${window.location.origin}/success`,
           },
         });
+
+      if (redirectSession?.fullUrl) {
+        window.location.href = redirectSession.fullUrl;
+      }
     } catch (err) {
       console.log(err);
     }
@@ -110,6 +114,7 @@ const CartModal = () => {
               <button
                 className="rounded-md py-3 px-4 ring-1 bg-black text-white disabled:cursor-not-allowed disabled:opacity-75"
                 disabled={isLoading}
+                onClick={handleCheckout}
               >
                 Checkout
               </button>
