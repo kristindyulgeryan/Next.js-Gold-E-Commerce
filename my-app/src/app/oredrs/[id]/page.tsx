@@ -1,7 +1,6 @@
 import { wixClientServer } from "@/lib/wixClientServer";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { cache } from "react";
 
 export const OrderPage = async ({ params }: { params: { id: string } }) => {
   const id = params.id;

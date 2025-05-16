@@ -19,7 +19,8 @@ const SinglPage = async ({ params }: { params: { slug: string } }) => {
   }
 
   const product = products.items[0];
-  console.log(product.productOptions);
+  // const reviewRes = await fetch(``);
+  // const reviews =await reviewRes.json()
 
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
@@ -44,14 +45,16 @@ const SinglPage = async ({ params }: { params: { slug: string } }) => {
         )}
         <div className="h-[2px] bg-gray-100" />
         {product.priceData?.price === product.priceData?.discountedPrice ? (
-          <h2 className="font-medium text-2xl">€ {product.priceData?.price}</h2>
+          <h2 className="font-medium text-2xl">
+            BGN {product.priceData?.price}
+          </h2>
         ) : (
           <div className="flex items-center gap-4">
             <h3 className="text-xl text-gray-500 line-through">
-              € {product.priceData?.price}
+              BGN {product.priceData?.price}
             </h3>
             <h2 className="font-medium text-2xl">
-              € {product.priceData?.discountedPrice}
+              BGN {product.priceData?.discountedPrice}
             </h2>
           </div>
         )}
@@ -64,7 +67,7 @@ const SinglPage = async ({ params }: { params: { slug: string } }) => {
           />
         ) : (
           <Add
-            productId={product._id || ""}
+            productId={product._id!}
             variantId="00000000-000000-000000-000000000001"
             inStock={product.stock?.inStock || false}
           />
